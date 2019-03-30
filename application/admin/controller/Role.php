@@ -8,15 +8,10 @@ use think\Db;
 class Role extends Commond{
 	public function roleList(){
 		// 查询role数据表的所有数据  并且每页显示10条数据
-		$list = Db::name('role')->order('Id desc')->select();
-//		print_r($list);die;
-//		$result = Db::name('level')->field('name')->where('Id','in','1,2')->select();
-//		print_r($result);die;
-		
+		$list = Db::name('role')->order('Id desc')->paginate(10);
 		foreach($list as $k=>$v){
-			$str = $v['jurisdiction'];
-//			print_r($str);die;
-//			print_r("$v['jurisdiction']");die;
+			$str = $v['permission'];
+			
 			$result = Db::name('level')->field('name')->where('Id','in',"$str")->select();
 			
 //			$levelList[] = $result;
@@ -24,19 +19,16 @@ class Role extends Commond{
 			$levelList = [];
 			foreach($result as $kk=>$vv){
 				$name = $vv['name'];
-//				print_r($kk['name']);
-//				print_r($result[$kk]['name']);die;
 				$levelList[] = $name;
 				
 			}
 			$levelStr = implode(',', $levelList);
-			$list[$k]['level'] = $levelStr;
-			print_r($list);die;
-////			print_r($levelLi;st);die;
+			$list[$k]['level'] = "123456";
+			print_r($list[$k]);die;
 		}
 		
 		
-		print_r($levelList);die;
+		// print_r($levelList);die;
 		$this->assign('list', $list);
 		$this->assign('title','角色列表');
 		return $this->fetch();
@@ -52,7 +44,7 @@ class Role extends Commond{
 			if(!$validate->check($data)){
 				$this->error($validate->getError());die;
 			}
-			$data['jurisdiction'] = implode(',', $data['Id']);
+			$data['permission'] = implode(',', $data['Id']);
 			unset($data['Id']);
 //			print_r($data);die;
 			$result = Db::name('role')->insert($data);
