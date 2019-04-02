@@ -10,15 +10,18 @@ use app\admin\model\Login;
 class Admin extends Controller{
 	
 	public function login(){
-		if(Request::instance()->isAjax()){
+		if(request()->isAjax()){
 			$info = ['error'=>false,'msg'=>''];
+			// 验证码处理
 			if(!captcha_check(input('post.code'))){
 				$info['msg'] = '验证码有误';
 				return $info;
 			}
+			//账号密码处理
 			$username = input('post.username');
 			$password = input('post.password');
-			$result = Db::name('manager')->where("username='$username'")->find();
+			$where = array('username'=>username);
+			$result = db('manager')->where($where)->find();
 			if(!$result){
 				$info['msg'] = '用户名不存在';
 				return $info;
@@ -27,13 +30,23 @@ class Admin extends Controller{
 				$info['msg'] = '账号或密码错误';
 				return $info;
 			}
-			//数据处理			
+			//数据处理
 			session('username',$username);
 			$result['login_count'] = $result['login_count']+1;
+			$result['last_time'] = time();
 			$admin = new Login();
 			// $result['last_entry'] = $admin->get_ip_info($_SERVER['SERVER_ADDR']);
-			$admin->save(['last_ip'  => $_SERVER['REMOTE_ADDR'],'last_time' => time(),'login_count'=>$result['login_count']],['Id' => $result['Id']]);
+			$admin->save($result,['Id' => $result['Id']]);
 			
+			//记住密码处理
+			$remember = input('post.remember');
+			if($remember){
+				cookie('username',$result['username']);
+				cookie('password',$result['password']);
+				cookie('remember',1);
+			}else{
+				return false;
+			}
 			$info = ['error'=>true,'msg'=>'登陆成功'];
 			return $info;
 		}

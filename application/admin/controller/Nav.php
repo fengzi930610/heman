@@ -6,6 +6,7 @@ use think\Loader;
 use think\Db;
 use app\admin\model\Navupdate;
 use app\admin\model\Navadd;
+
 class Nav extends Commond{
 	public function navList(){
 		// 查询nav数据表的所有数据  并且每页显示10条数据
