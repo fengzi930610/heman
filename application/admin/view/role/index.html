@@ -42,7 +42,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						{volist name='list' id='role'}
+						{volist name='items' id='role'}
 							<tr class="text-c">
 								<td><input type="checkbox" value="{$role.Id}" name=""></td>
 								<td>{$role.Id}</td>
@@ -60,7 +60,7 @@
 				</table>
 				
 			</div>
-			<div style="text-align: center; widows: 100%;">{$list->render()}</div>
+			<div style="text-align: center; widows: 100%;">{$items->render()}</div>
 		</article>
 	</div>
 	<style type="text/css">

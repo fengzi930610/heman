@@ -6,30 +6,26 @@ use think\Loader;
 use think\Db;
 
 class Role extends Commond{
-	public function roleList(){
+	public function index(){
 		// 查询role数据表的所有数据  并且每页显示10条数据
-		$list = Db::name('role')->order('Id desc')->paginate(10);
+		$list =  Db::name('role')->order('Id desc')->paginate(10);
 		foreach($list as $k=>$v){
+			print_r(gettype($list[$k]));die;
 			$str = $v['permission'];
-			
 			$result = Db::name('level')->field('name')->where('Id','in',"$str")->select();
 			
-//			$levelList[] = $result;
-//			$levelList = [];
 			$levelList = [];
 			foreach($result as $kk=>$vv){
 				$name = $vv['name'];
 				$levelList[] = $name;
 				
 			}
+			// print_r($levelList);die;
 			$levelStr = implode(',', $levelList);
-			$list[$k]['level'] = "123456";
-			print_r($list[$k]);die;
+			// $list[$k]['level'] = $levelStr;
 		}
-		
-		
-		// print_r($levelList);die;
-		$this->assign('list', $list);
+		print_r($list);die;
+		$this->assign('items', $list);
 		$this->assign('title','角色列表');
 		return $this->fetch();
 	}

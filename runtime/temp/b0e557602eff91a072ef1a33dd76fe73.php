@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:73:"C:\phpStudy\PHPTutorial\WWW\heman/application/admin\view\admin\login.html";i:1554112225;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:73:"C:\phpStudy\PHPTutorial\WWW\heman/application/admin\view\admin\login.html";i:1554172301;}*/ ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +19,7 @@
 		            <!--让表单在一行中显示form-horizontal--> 
 		          <div class="form-group">
 		              <div class="col-lg-4">
-		                <input type="text" name="username" id="username" class="form-control" placeholder="请输入用户名" value="<?php echo \think\Cookie::get('username')?\think\Cookie::get('username'):''; ?>">
+		                <input type="text" name="username" id="username" class="form-control" placeholder="请输入用户名" value="<?php echo isset($_COOKIE['username'])? $_COOKIE['username'] : '';?>" >
 		              </div>              
 		          </div>
 				  <div class="form-group"></div>
@@ -27,7 +27,7 @@
 
 		          <div class="form-group">
 		              <div class="col-lg-4">
-		                <input type="password" name="password" id="password" class="form-control" placeholder="请输入密码" value="<?php echo \think\Cookie::get('password')?\think\Cookie::get('password'):''; ?>">
+		                <input type="password" name="password" id="password" class="form-control" placeholder="请输入密码" value="<?php echo isset($_COOKIE['password'])? $_COOKIE['password'] : '';?>" >
 		              </div>              
 		          </div>
                    <div class="form-group">
@@ -41,7 +41,7 @@
 		          <div class="form-group">
 		            <div class="col-lg-11 col-lg-offset-1" style="margin-left: 40px;">              
 		                <span class="checkbox " style="display: inline-block;">
-		                    <label><input type="checkbox" name="remember" class="checkbox-inline" <?php echo \think\Cookie::get('remember')?'checked="checked"':'checked=""'; ?>>记住密码</label> 
+		                    <label><input type="checkbox" name="remember" class="checkbox-inline">记住密码</label> 
 		                </span>
 		                <input type="submit" value="登录" id="btn" class="btn btn-danger btn-lg" style="margin-left: 100px;">   
 		                <!--<input type="button" />-->

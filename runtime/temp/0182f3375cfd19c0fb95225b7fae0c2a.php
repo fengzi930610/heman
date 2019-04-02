@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:73:"C:\phpStudy\PHPTutorial\WWW\heman/application/admin\view\index\index.html";i:1554104475;s:68:"C:\phpStudy\PHPTutorial\WWW\heman/application/admin\view\layout.html";i:1554109666;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:73:"C:\phpStudy\PHPTutorial\WWW\heman/application/admin\view\index\index.html";i:1554191137;s:68:"C:\phpStudy\PHPTutorial\WWW\heman/application/admin\view\layout.html";i:1554109666;}*/ ?>
 <!--_meta 作为公共模版分离出去-->
 <!DOCTYPE HTML>
 <html>

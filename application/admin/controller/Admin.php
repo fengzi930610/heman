@@ -20,7 +20,7 @@ class Admin extends Controller{
 			//账号密码处理
 			$username = input('post.username');
 			$password = input('post.password');
-			$where = array('username'=>username);
+			$where = array('username'=>$username);
 			$result = db('manager')->where($where)->find();
 			if(!$result){
 				$info['msg'] = '用户名不存在';
@@ -40,13 +40,16 @@ class Admin extends Controller{
 			
 			//记住密码处理
 			$remember = input('post.remember');
-			if($remember){
+			if($remember == 'true'){
 				cookie('username',$result['username']);
 				cookie('password',$result['password']);
-				cookie('remember',1);
+				cookie('remember',$remember);
 			}else{
-				return false;
+				cookie('username',null);
+				cookie('password',null);
+				cookie('remember',$remember);
 			}
+			
 			$info = ['error'=>true,'msg'=>'登陆成功'];
 			return $info;
 		}

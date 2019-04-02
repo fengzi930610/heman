@@ -18,7 +18,7 @@
 		            <!--让表单在一行中显示form-horizontal--> 
 		          <div class="form-group">
 		              <div class="col-lg-4">
-		                <input type="text" name="username" id="username" class="form-control" placeholder="请输入用户名" value="{$Think.cookie.username?$Think.cookie.username:''}">
+		                <input type="text" name="username" id="username" class="form-control" placeholder="请输入用户名" value="<?php echo isset($_COOKIE['username'])? $_COOKIE['username'] : '';?>" >
 		              </div>              
 		          </div>
 				  <div class="form-group"></div>
@@ -26,7 +26,7 @@
 
 		          <div class="form-group">
 		              <div class="col-lg-4">
-		                <input type="password" name="password" id="password" class="form-control" placeholder="请输入密码" value="{$Think.cookie.password?$Think.cookie.password:''}">
+		                <input type="password" name="password" id="password" class="form-control" placeholder="请输入密码" value="<?php echo isset($_COOKIE['password'])? $_COOKIE['password'] : '';?>" >
 		              </div>              
 		          </div>
                    <div class="form-group">
@@ -40,7 +40,7 @@
 		          <div class="form-group">
 		            <div class="col-lg-11 col-lg-offset-1" style="margin-left: 40px;">              
 		                <span class="checkbox " style="display: inline-block;">
-		                    <label><input type="checkbox" name="remember" class="checkbox-inline" {$Think.cookie.remember?'checked="checked"':'checked=""'}>记住密码</label> 
+		                    <label><input type="checkbox" name="remember" class="checkbox-inline">记住密码</label> 
 		                </span>
 		                <input type="submit" value="登录" id="btn" class="btn btn-danger btn-lg" style="margin-left: 100px;">   
 		                <!--<input type="button" />-->
