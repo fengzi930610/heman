@@ -32,6 +32,7 @@ class Admin extends Controller{
 			}
 			//数据处理
 			session('username',$username);
+			session('Id',$result['Id']);
 			$result['login_count'] = $result['login_count']+1;
 			$result['last_time'] = time();
 			$admin = new Login();

@@ -33,15 +33,15 @@ class Commond extends Controller{
 		return $list;
 	}
 	//递归遍历
-	public function level($Id=0,$list=[],$spac=0){
-		$spac += 1;
+	public function level($Id=0,$list=[]){
+		// $spac += 1;
 		$arr = Db::name('level')->where("fId=$Id")->select();
 //		print_r($arr);die;
 		if($arr){
 			foreach($arr as $k=>$v){
-				$v['name'] = str_repeat('|', $spac).'-'.$v['name'];
+				// $v['name'] = str_repeat('|', $spac).'-'.$v['name'];
 				$list[] = $v;
-				$list = $this->level($v['Id'],$list,$spac);
+				$list = $this->level($v['Id'],$list);
 			}
 		}
 		return $list;

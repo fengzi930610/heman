@@ -5,6 +5,7 @@ use app\admin\controller\Commond;
 use think\Loader;
 use think\Db;
 use app\admin\model\Bbrand;
+
 class Brand extends Commond{
 	public function brandList(){
 		// 查询brand数据表的所有数据  并且每页显示10条数据

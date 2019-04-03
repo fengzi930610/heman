@@ -9,28 +9,23 @@ class Role extends Commond{
 	public function index(){
 		// 查询role数据表的所有数据  并且每页显示10条数据
 		$list =  Db::name('role')->order('Id desc')->paginate(10);
-		foreach($list as $k=>$v){
-			print_r(gettype($list[$k]));die;
-			$str = $v['permission'];
-			$result = Db::name('level')->field('name')->where('Id','in',"$str")->select();
-			
-			$levelList = [];
-			foreach($result as $kk=>$vv){
-				$name = $vv['name'];
-				$levelList[] = $name;
-				
-			}
-			// print_r($levelList);die;
-			$levelStr = implode(',', $levelList);
-			// $list[$k]['level'] = $levelStr;
-		}
-		print_r($list);die;
+// 		foreach($list as $k=>$v){
+// 			$str = explode(',',$v['permission']);
+// 			$result = Db::name('level')->field('name')->whereIn('Id',$str)->select();
+// 			$levelList = array();
+// 			foreach($result as $kk=>$vv){
+// 				$name = $vv['name'];
+// 				$levelList[] = $name;
+// 			}
+// 			
+// 		}
+		// print_r($list);die;
 		$this->assign('items', $list);
 		$this->assign('title','角色列表');
 		return $this->fetch();
 	}
 	
-	public function roleAdd(){
+	public function add(){
 		
 //		print_r($levelList);die;
 		if(request()->isPost()){
@@ -60,38 +55,32 @@ class Role extends Commond{
 		}
 		
 	}
-	public function roleUpdate(){
-		$Id = input('Id');
-//		print_r($Id);die;
-		$one = Db::name('role')->where("Id=$Id")->find();
-//		print_r($one);die;
-		$this->assign('one',$one);
-		$this->assign('title','角色编辑');
-		
-		if(request()->isPost()){
+	public function edit(){
+		if(request()->isAjax()){
+			$refer = $_POST['data'];
 			
-			$data = input('post.');
-//			print_r($data);die;
-			$validate = Loader::validate('Brand');
-			if(!$validate->check($data)){
-				$this->error($validate->getError());die;
-			}
 			$result = Db::name('role')->update($data);
 //			print_r($result);die;
 			if($result==1){
-				$this->success('修改成功','Brand/roleList');die;
+				$this->success('修改成功','Brand/index');die;
 			}else if($result==0){
-				$this->success('数据未修改','Brand/roleList');die;
+				$this->success('数据未修改','Brand/index');die;
 			}else{
 				$this->error('修改失败');die;
 			}
 			
 		}
-//		echo "string";
-		
+		$Id = input('Id');
+		if(empty($Id) || $Id != (int) $Id ){
+			$this->error('请输入正确的url');
+		}
+		$detail = Db::name('role')->where("Id=$Id")->find();
+		$this->assign('level',$this->level());
+		$this->assign('detail',$detail);
+		$this->assign('title','角色编辑');
 		return $this->fetch();
 	}
-	public function roleDelete(){
+	public function amputate(){
 		$Id = input('Id');
 //		print_r($Id);die;
 		$result = Db::name('role')->where("Id=$Id")->delete();
